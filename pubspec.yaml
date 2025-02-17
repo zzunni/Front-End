@@ -29,6 +29,7 @@ dependencies:
   camera: ^0.10.6
   audioplayers: ^5.2.1
   permission_handler: ^11.0.0
+  flutter_svg: ^2.0.9
 
 dev_dependencies:
   flutter_test:
@@ -46,6 +47,22 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  assets:
+    - assets/MIC_ICON.svg
+    - assets/icon_userbox.svg
+    - assets/icon_book.svg
+    - assets/icon_pictop.svg
+    - assets/icon_picbot.svg
+
+  fonts:
+    - family: KoddiUD OnGothic
+      fonts:
+        - asset: assets/fonts/KoddiUDOnGothic-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/KoddiUDOnGothic-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/KoddiUDOnGothic-ExtraBold.ttf
+          weight: 800
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

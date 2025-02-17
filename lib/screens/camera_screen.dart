@@ -1,3 +1,4 @@
+import 'package:Art_Teller/screens/personal_page.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'art_teller_screen.dart';
@@ -56,7 +57,12 @@ class _CameraScreenState extends State<CameraScreen> {
             icon: const Icon(Icons.account_circle, color: Colors.orange),
             onPressed: () {
               // 사용자 정보 화면 이동 기능 추가 가능
-              print("사용자 아이콘 클릭됨");
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FigmaScreen(),
+                ),
+              );;
             },
           ),
         ],
