@@ -49,12 +49,12 @@ class _CameraScreenState extends State<CameraScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Art Teller", style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold, color: Colors.orange)),
+        title: const Text("Art Teller", style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold, color: Color(0xFFD55E00))),
         centerTitle: true,
         backgroundColor: Colors.black,
         actions: [
           IconButton(
-            icon: const Icon(Icons.account_circle, color: Colors.orange),
+            icon: const Icon(Icons.account_circle, color: Color(0xFFD55E00), size: 40.0),
             onPressed: () {
               // 사용자 정보 화면 이동 기능 추가 가능
               Navigator.push(
@@ -76,17 +76,17 @@ class _CameraScreenState extends State<CameraScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                IconButton(icon: const Icon(Icons.remove, color: Colors.orange), onPressed: () => _zoomCamera(_currentZoom - 0.1)),
+                IconButton(icon: const Icon(Icons.remove, color: Color(0xFFD55E00)), onPressed: () => _zoomCamera(_currentZoom - 0.1)),
                 Expanded(
                   child: Slider(
-                    activeColor: Colors.orange,
+                    activeColor: Color(0xFFD55E00),
                     min: 1.0,
                     max: 8.0,
                     value: _currentZoom,
                     onChanged: (value) => _zoomCamera(value),
                   ),
                 ),
-                IconButton(icon: const Icon(Icons.add, color: Colors.orange), onPressed: () => _zoomCamera(_currentZoom + 0.1)),
+                IconButton(icon: const Icon(Icons.add, color: Color(0xFFD55E00)), onPressed: () => _zoomCamera(_currentZoom + 0.1)),
               ],
             ),
           ),
@@ -105,7 +105,7 @@ class _CameraScreenState extends State<CameraScreen> {
               child: Container(
                 width: 70,
                 height: 70,
-                decoration: BoxDecoration(color: Colors.orange, shape: BoxShape.circle),
+                decoration: BoxDecoration(color: Color(0xFFD55E00), shape: BoxShape.circle),
               ),
             ),
           ),
