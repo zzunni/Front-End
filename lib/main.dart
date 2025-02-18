@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'services/permission_service.dart';
-import 'screens/figma_splash_screen.dart';
+import 'screens/loading_screen.dart';
+import 'screens/camera_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: Colors.black,
       ),
-      home: FigmaSplashScreen(camera: camera), // ✅ 초기 화면을 FigmaSplashScreen으로 설정
+      home: SplashScreen(camera: camera), // ✅ 초기 화면을 LoadingScreen으로 설정
     );
   }
 }

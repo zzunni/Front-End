@@ -1,6 +1,6 @@
-# llama_chat
+# Art_chat
 
-라마 챗봇 앱
+Art_Chat
 
 ## Getting Started
 

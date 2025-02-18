@@ -1,7 +1,8 @@
-import 'package:Art_Teller/screens/personal_page.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-import 'art_teller_screen.dart';
+
+import 'analysis_screen.dart';
+import 'mypage_screen.dart';
 
 class CameraScreen extends StatefulWidget {
   final CameraDescription camera;
@@ -49,20 +50,17 @@ class _CameraScreenState extends State<CameraScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Art Teller", style: TextStyle(fontSize: 32.0, fontWeight: FontWeight.bold, color: Color(0xFFD55E00))),
-        centerTitle: true,
+        title: const Text("카메라", style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.white)),
+        centerTitle: false,
         backgroundColor: Colors.black,
         actions: [
           IconButton(
-            icon: const Icon(Icons.account_circle, color: Color(0xFFD55E00), size: 40.0),
-            onPressed: () {
-              // 사용자 정보 화면 이동 기능 추가 가능
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => FigmaScreen(),
-                ),
-              );;
+            icon: const Icon(Icons.account_circle, color: Colors.white, size: 30.0),
+            onPressed: () {Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => MyPageScreen()), // MyPageScreen으로 이동
+            );
+              // 사용자 프로필 페이지로 이동 (추후 추가 예정)
             },
           ),
         ],
@@ -70,23 +68,42 @@ class _CameraScreenState extends State<CameraScreen> {
       backgroundColor: Colors.black,
       body: Column(
         children: [
-          Expanded(child: CameraPreview(_controller)),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+          Expanded(
+            child: Stack(
+              alignment: Alignment.center,
               children: [
-                IconButton(icon: const Icon(Icons.remove, color: Color(0xFFD55E00)), onPressed: () => _zoomCamera(_currentZoom - 0.1)),
+                CameraPreview(_controller),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.yellow, width: 1.5),
+                  ),
+                  width: 200,
+                  height: 200,
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+            child: Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.remove, color: Colors.white),
+                  onPressed: () => _zoomCamera(_currentZoom - 0.1),
+                ),
                 Expanded(
                   child: Slider(
-                    activeColor: Color(0xFFD55E00),
+                    activeColor: Colors.white,
                     min: 1.0,
                     max: 8.0,
                     value: _currentZoom,
                     onChanged: (value) => _zoomCamera(value),
                   ),
                 ),
-                IconButton(icon: const Icon(Icons.add, color: Color(0xFFD55E00)), onPressed: () => _zoomCamera(_currentZoom + 0.1)),
+                IconButton(
+                  icon: const Icon(Icons.add, color: Colors.white),
+                  onPressed: () => _zoomCamera(_currentZoom + 0.1),
+                ),
               ],
             ),
           ),
@@ -97,7 +114,13 @@ class _CameraScreenState extends State<CameraScreen> {
                 try {
                   final image = await _controller.takePicture();
                   if (!mounted) return;
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => ArtTellerScreen(imagePath: image.path)));
+                  // 캡처한 이미지 사용 (추후 기능 추가 예정)
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AnalysisScreen(imagePath: image.path),
+                    ),
+                  );
                 } catch (e) {
                   print("Error taking picture: $e");
                 }
@@ -105,7 +128,7 @@ class _CameraScreenState extends State<CameraScreen> {
               child: Container(
                 width: 70,
                 height: 70,
-                decoration: BoxDecoration(color: Color(0xFFD55E00), shape: BoxShape.circle),
+                decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle),
               ),
             ),
           ),

@@ -1,4 +1,4 @@
-name: Art_Teller
+name: Art_Chat
 description: "시각장애인 미술관 도우미 앱"
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -30,6 +30,8 @@ dependencies:
   audioplayers: ^5.2.1
   permission_handler: ^11.0.0
   flutter_svg: ^2.0.9
+  speech_to_text: ^6.3.0
+  intl: ^0.18.0
 
 dev_dependencies:
   flutter_test:
@@ -48,11 +50,15 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   assets:
-    - assets/MIC_ICON.svg
+    - assets/picbot.png
+    - assets/pictop.png
+    - assets/kakao_icon.svg
+    - assets/left_icon.svg
+    - assets/right_icon.svg
+    - assets/calender_icon.svg
     - assets/icon_userbox.svg
-    - assets/icon_book.svg
-    - assets/icon_pictop.svg
-    - assets/icon_picbot.svg
+    - assets/icon_artchat.svg
+    - assets/MIC_ICON.svg
 
   fonts:
     - family: KoddiUD OnGothic
