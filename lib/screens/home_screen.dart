@@ -11,7 +11,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> watchedArtworks = []; // 최근 감상한 작품 리스트 (예제 데이터)
+    final List<String> watchedArtworks = []; // 최근 감상한 작품 리스트 (데베 연결 필요)
 
     return Scaffold(
       appBar: AppBar(
