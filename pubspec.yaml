@@ -59,6 +59,8 @@ flutter:
     - assets/icon_userbox.svg
     - assets/icon_artchat.svg
     - assets/MIC_ICON.svg
+    - assets/recommand_img.png
+    - assets/vangogh.jpg
 
   fonts:
     - family: KoddiUD OnGothic

@@ -52,19 +52,8 @@ class _CameraScreenState extends State<CameraScreen> {
       appBar: AppBar(
         title: const Text("카메라", style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.white)),
         centerTitle: false,
-        backgroundColor: Colors.black,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.account_circle, color: Colors.white, size: 30.0),
-            onPressed: () {Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => MyPageScreen()), // MyPageScreen으로 이동
-            );
-              // 사용자 프로필 페이지로 이동 (추후 추가 예정)
-            },
-          ),
-        ],
-      ),
+        backgroundColor: Colors.black,),
+
       backgroundColor: Colors.black,
       body: Column(
         children: [

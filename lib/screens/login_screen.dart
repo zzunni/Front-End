@@ -152,32 +152,39 @@ class LoginScreen extends StatelessWidget {
   }
 
   Widget buildKakaoButton() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 15),
-      decoration: BoxDecoration(
-        color: const Color(0xFFFEE500),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SvgPicture.asset(
-            'assets/kakao_icon.svg',
-            height: 20,
-          ),
-          const SizedBox(width: 8),
-          const Text(
-            '카카오 로그인',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
+    return GestureDetector(
+      onTap: () {
+        // 카카오 로그인 로직 구현
+        print('카카오 로그인 클릭');
+      },
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(vertical: 15),
+        decoration: BoxDecoration(
+          color: const Color(0xFFFEE500),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              'assets/kakao_icon.svg',
+              height: 20,
+              width: 20,
+              fit: BoxFit.contain,
             ),
-          ),
-        ],
+            const SizedBox(width: 8),
+            const Text(
+              '카카오 로그인',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.black87,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
-
