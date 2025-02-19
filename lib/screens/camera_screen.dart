@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 
 import 'analysis_screen.dart';
+import 'loading_analysis_screen.dart';
 import 'mypage_screen.dart';
 
 class CameraScreen extends StatefulWidget {
@@ -107,7 +108,7 @@ class _CameraScreenState extends State<CameraScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => AnalysisScreen(imagePath: image.path),
+                      builder: (context) => LoadingScreen(imagePath: image.path),
                     ),
                   );
                 } catch (e) {
