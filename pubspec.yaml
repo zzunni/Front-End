@@ -63,6 +63,7 @@ flutter:
     - assets/recommand_img.png
     - assets/vangogh.jpg
     - assets/river-hold-451408-v5-0022d89b944f.json
+    - assets/avatar.png
 
   fonts:
     - family: KoddiUD OnGothic

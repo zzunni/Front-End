@@ -71,7 +71,7 @@ class HomeScreen extends StatelessWidget {
                 child: Row(
                   children: [
                     CircleAvatar(
-                      radius: 30,
+                      radius: 50,
                       backgroundImage: AssetImage('assets/avatar.png'), // 임시 이미지
                     ),
                     const SizedBox(width: 16),

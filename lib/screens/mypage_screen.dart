@@ -61,7 +61,7 @@ class MyPageScreen extends StatelessWidget {
                 children: [
                   const CircleAvatar(
                     radius: 40,
-                    backgroundImage: AssetImage('assets/profile.jpg'),
+                    backgroundImage: AssetImage('assets/avatar.png'),
                   ),
                   SizedBox(width: screenWidth * 0.04),
                   Column(
@@ -72,16 +72,9 @@ class MyPageScreen extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                        ),
+                            color: Colors.black),
                       ),
                       SizedBox(height: 4),
-                      Text(
-                        "rlaalstn21@naver.com",
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black54,
-                        ),
-                      ),
                     ],
                   ),
                 ],
