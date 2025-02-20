@@ -33,6 +33,7 @@ dependencies:
   speech_to_text: ^6.3.0
   intl: ^0.18.0
   googleapis_auth: ^1.4.0
+  mysql1: ^0.20.0
 
 dev_dependencies:
   flutter_test:

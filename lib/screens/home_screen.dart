@@ -13,6 +13,7 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.black), // 뒤로가기 버튼 색상 변경
         title: const Text(
           'ArtChemy',
           style: TextStyle(

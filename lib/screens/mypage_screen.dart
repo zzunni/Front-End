@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'mycollection_screen.dart';  // DiaryPage 위젯을 import
+import 'diary_screen.dart';  // DiaryPage 위젯을 import
 
 void main() {
   runApp(const MyApp());
