@@ -1,26 +1,7 @@
-import 'package:Art_Chat/screens/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:Art_Chat/screens/signup_screen.dart';
 
- void main() {
-  runApp(const ArtChatApp());
-}
-
-class ArtChatApp extends StatelessWidget {
-  const ArtChatApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: const LoginScreen(),
-    );
-  }
-}
-
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class SignupScreen extends StatelessWidget {
+  const SignupScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +10,7 @@ class LoginScreen extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
+            padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -54,44 +35,27 @@ class LoginScreen extends StatelessWidget {
                 buildInputField('아이디'),
                 const SizedBox(height: 20),
                 buildInputField('비밀번호', isPassword: true),
+                const SizedBox(height: 20),
+                buildInputField('비밀번호 확인', isPassword: true),
                 const SizedBox(height: 30),
                 buildButton(
-                  '로그인',
+                  '회원가입',
                   const Color(0xFF1E40AF),
                   Colors.white,
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const HomeScreen(),
-                      ),
-                    );
+                    showSignupSuccessDialog(context);
                   },
                 ),
                 const SizedBox(height: 10),
                 buildButton(
-                  '회원가입',
+                  '뒤로 가기',
                   Colors.white,
                   const Color(0xFF1E40AF),
                   border: true,
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const SignupScreen()),
-                    );
+                    Navigator.pop(context);
                   },
                 ),
-                const SizedBox(height: 20),
-                const Text(
-                  'or',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black54,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                buildKakaoButton(),
               ],
             ),
           ),
@@ -158,40 +122,29 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget buildKakaoButton() {
-    return GestureDetector(
-      onTap: () {
-        // 카카오 로그인 로직 구현
-        print('카카오 로그인 클릭');
-      },
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 15),
-        decoration: BoxDecoration(
-          color: const Color(0xFFFEE500),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset(
-              'assets/kakao_icon.svg',
-              height: 20,
-              width: 20,
-              fit: BoxFit.contain,
-            ),
-            const SizedBox(width: 8),
-            const Text(
-              '카카오 로그인',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.black87,
+  void showSignupSuccessDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          title: const Text('회원가입 완료'),
+          content: const Text('회원가입이 성공적으로 완료되었습니다!'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // 다이얼로그 닫기
+                Navigator.pop(context); // 로그인 화면으로 이동
+              },
+              child: const Text('확인',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
               ),
             ),
           ],
-        ),
-      ),
+        );
+      },
     );
   }
 }

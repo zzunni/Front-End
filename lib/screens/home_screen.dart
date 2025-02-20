@@ -1,17 +1,15 @@
-import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:flutter/material.dart';
 import 'camera_screen.dart';
-import 'login_screen.dart';
+import 'mypage_screen.dart';
 import 'recommand_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-  final CameraDescription camera;
-
-  const HomeScreen({Key? key, required this.camera}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final List<String> watchedArtworks = []; // 최근 감상한 작품 리스트 (데베 연결 필요)
+    final List<String> watchedArtworks = []; // 최근 감상한 작품 리스트 (예제 데이터)
 
     return Scaffold(
       appBar: AppBar(
@@ -31,7 +29,7 @@ class HomeScreen extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => LoginScreen()),
+                MaterialPageRoute(builder: (context) => const MyPageScreen()),
               );
             },
           ),
@@ -45,11 +43,18 @@ class HomeScreen extends StatelessWidget {
           children: [
             // 작품 감상하기 버튼
             GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => CameraScreen(camera: camera)),
-                );
+              onTap: () async {
+                final cameras = await availableCameras(); // 카메라 목록 가져오기
+                if (cameras.isNotEmpty) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => CameraScreen(camera: cameras.first)),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('카메라를 찾을 수 없습니다.')),
+                  );
+                }
               },
               child: Container(
                 width: double.infinity,
@@ -107,11 +112,10 @@ class HomeScreen extends StatelessWidget {
             ),
             const SizedBox(height: 12),
 
-            // 최근 감상한 작품 목록
             watchedArtworks.isEmpty
                 ? Container(
               width: double.infinity,
-              height: 300, // 기본 높이 유지
+              height: 300,
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -132,7 +136,7 @@ class HomeScreen extends StatelessWidget {
               ),
             )
                 : SizedBox(
-              height: 300, // 리스트도 동일한 높이 적용
+              height: 300,
               child: ListView.builder(
                 itemCount: watchedArtworks.length,
                 itemBuilder: (context, index) {
@@ -154,7 +158,6 @@ class HomeScreen extends StatelessWidget {
             // 오늘의 명화 추천 버튼
             GestureDetector(
               onTap: () {
-                // 추천 명화 페이지로 이동할 로직 추가
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const RecommandScreen()),
@@ -162,11 +165,11 @@ class HomeScreen extends StatelessWidget {
               },
               child: Container(
                 width: double.infinity,
-                height: 130, // 버튼 높이 설정
+                height: 130,
                 decoration: BoxDecoration(
                   image: const DecorationImage(
-                    image: AssetImage('assets/recommand_img.png'), // 배경 이미지
-                    fit: BoxFit.cover, // 전체 배경 채우기
+                    image: AssetImage('assets/recommand_img.png'),
+                    fit: BoxFit.cover,
                   ),
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: Colors.blueAccent, width: 2),

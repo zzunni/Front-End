@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
+import '../services/tts_service.dart';
 
 class VtsScreen extends StatefulWidget {
   final String imagePath;
@@ -13,6 +14,8 @@ class VtsScreen extends StatefulWidget {
 
 class _VtsScreenState extends State<VtsScreen> {
   final stt.SpeechToText _speech = stt.SpeechToText();
+  final TTSService _ttsService = TTSService(); // ✅ TTSService 인스턴스 생성
+
   bool _isListening = false;
   String _text = "";
 
@@ -49,7 +52,11 @@ class _VtsScreenState extends State<VtsScreen> {
         conversation.last["question"] = _text;
 
         // AI 응답 추가 (임시로 "인공지능의 답변입니다.")
-        conversation.last["response"] = "인공지능의 답변입니다.";
+        String aiResponse = "인공지능의 답변입니다.";
+        conversation.last["response"] = aiResponse;
+
+        // ✅ TTS 인스턴스를 사용하여 AI 응답 읽기
+        _ttsService.speak(aiResponse);
 
         // 새로운 질문 추가
         conversation.add({"question": "이 작품에서 무엇이 보이나요?", "response": ""});

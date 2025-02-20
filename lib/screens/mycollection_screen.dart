@@ -5,6 +5,52 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'mypage_screen.dart';
 
+// ArtworkModel 클래스 추가
+class ArtworkModel {
+  final String title;
+  final String imagePath;
+  final DateTime date;
+
+  ArtworkModel({
+    required this.title,
+    required this.imagePath,
+    required this.date
+  });
+}
+
+class ArtworkRepository {
+  static final List<ArtworkModel> _mockArtworks = [
+    ArtworkModel(
+        title: '별이 빛나는 밤',
+        imagePath: 'pictop.png',
+        date: DateTime(2025, 2, 19)
+    ),
+    ArtworkModel(
+        title: '사이프러스가 있는 밀밭',
+        imagePath: 'picbot.png',
+        date: DateTime(2025, 2, 19)
+    ),
+    ArtworkModel(
+        title: '별이 빛나는 밤',
+        imagePath: 'pictop.png',
+        date: DateTime(2025, 2, 20)
+    ),
+    ArtworkModel(
+        title: '사이프러스가 있는 밀밭',
+        imagePath: 'picbot.png',
+        date: DateTime(2025, 2, 21)
+    )
+  ];
+
+  static List<ArtworkModel> getArtworksByDate(DateTime date) {
+    return _mockArtworks.where((artwork) =>
+    artwork.date.year == date.year &&
+        artwork.date.month == date.month &&
+        artwork.date.day == date.day
+    ).toList();
+  }
+}
+
 void main() {
   runApp(const MyApp());
 }
@@ -37,16 +83,28 @@ class _DiaryPageState extends State<DiaryPage> {
   bool _isListening = false;
   String _searchText = "찾으시는 작품 있으세요?";
 
-  final List<Map<String, String>> _artworks = [
-    {'title': '별이 빛나는 밤', 'imagePath': 'pictop.png'},
-    {'title': '사이프러스가 있는 밀밭', 'imagePath': 'picbot.png'},
-  ];
+  List<Map<String, String>> _artworks = [];
+
 
   @override
   void initState() {
     super.initState();
     _initSpeech();
+    _loadArtworksForSelectedDate();
   }
+
+  // 선택된 날짜의 작품 로드
+  void _loadArtworksForSelectedDate() {
+    final artworksForDate = ArtworkRepository.getArtworksByDate(selectedDate);
+
+    setState(() {
+      _artworks = artworksForDate.map((artwork) => {
+        'title': artwork.title,
+        'imagePath': artwork.imagePath
+      }).toList();
+    });
+  }
+
 
   Future<void> _initSpeech() async {
     var micStatus = await Permission.microphone.request();
@@ -161,6 +219,18 @@ class _DiaryPageState extends State<DiaryPage> {
     );
   }
 
+  // 날짜 변경 메서드 수정
+  void _changeDate(bool isNext) {
+    setState(() {
+      selectedDate = isNext
+          ? selectedDate.add(Duration(days: 1))
+          : selectedDate.subtract(Duration(days: 1));
+    });
+
+    // 날짜 변경 후 작품 다시 로드
+    _loadArtworksForSelectedDate();
+  }
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -226,10 +296,13 @@ class _DiaryPageState extends State<DiaryPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SvgPicture.asset(
-                  'assets/left_icon.svg',
-                  width: 14,
-                  height: 14,
+                GestureDetector(
+                  onTap: () => _changeDate(false),
+                  child: SvgPicture.asset(
+                    'assets/left_icon.svg',
+                    width: 14,
+                    height: 14,
+                  ),
                 ),
                 const SizedBox(width: 16),
                 Row(
@@ -257,14 +330,18 @@ class _DiaryPageState extends State<DiaryPage> {
                   ],
                 ),
                 const SizedBox(width: 16),
-                SvgPicture.asset(
-                  'assets/right_icon.svg',
-                  width: 14,
-                  height: 14,
+                GestureDetector(
+                  onTap: () => _changeDate(true),
+                  child: SvgPicture.asset(
+                    'assets/right_icon.svg',
+                    width: 14,
+                    height: 14,
+                  ),
                 ),
               ],
             ),
           ),
+
           Expanded(
             child: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -310,33 +387,7 @@ class _DiaryPageState extends State<DiaryPage> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  'assets/left_icon.svg',
-                  width: 14,
-                  height: 14,
-                ),
-                const SizedBox(width: 16),
-                const Text(
-                  "1",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(width: 16),
-                SvgPicture.asset(
-                  'assets/right_icon.svg',
-                  width: 14,
-                  height: 14,
-                ),
-              ],
-            ),
-          ),
+
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
             child: Container(

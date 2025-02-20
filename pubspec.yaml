@@ -32,6 +32,7 @@ dependencies:
   flutter_svg: ^2.0.9
   speech_to_text: ^6.3.0
   intl: ^0.18.0
+  googleapis_auth: ^1.4.0
 
 dev_dependencies:
   flutter_test:
@@ -61,6 +62,7 @@ flutter:
     - assets/MIC_ICON.svg
     - assets/recommand_img.png
     - assets/vangogh.jpg
+    - assets/river-hold-451408-v5-0022d89b944f.json
 
   fonts:
     - family: KoddiUD OnGothic

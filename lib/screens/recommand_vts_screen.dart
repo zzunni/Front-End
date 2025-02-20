@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
+import '../services/tts_service.dart'; // TTS 서비스 추가
 
 class RecommandVtsScreen extends StatefulWidget {
   const RecommandVtsScreen({Key? key}) : super(key: key);
@@ -10,6 +11,7 @@ class RecommandVtsScreen extends StatefulWidget {
 
 class _RecommandVtsScreenState extends State<RecommandVtsScreen> {
   final stt.SpeechToText _speech = stt.SpeechToText();
+  final TTSService _ttsService = TTSService(); // TTS 서비스 초기화
   bool _isListening = false;
   String _text = "";
 
@@ -45,6 +47,9 @@ class _RecommandVtsScreenState extends State<RecommandVtsScreen> {
         conversation.last["question"] = _text;
         conversation.last["response"] = "인공지능의 답변입니다.";
         conversation.add({"question": "이 작품에서 무엇이 보이나요?", "response": ""});
+
+        // TTS로 응답 읽기
+        _ttsService.speak("인공지능의 답변입니다.");
       }
     });
   }
@@ -97,7 +102,10 @@ class _RecommandVtsScreenState extends State<RecommandVtsScreen> {
                     if (conversation[index]["response"]!.isNotEmpty)
                       Align(
                         alignment: Alignment.centerRight,
-                        child: _buildResponseBlock(conversation[index]["response"]!),
+                        child: GestureDetector(
+                          onTap: () => _ttsService.speak(conversation[index]["response"]!),
+                          child: _buildResponseBlock(conversation[index]["response"]!),
+                        ),
                       ),
                     const SizedBox(height: 12),
                   ],

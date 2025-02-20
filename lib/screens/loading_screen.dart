@@ -1,18 +1,15 @@
+import 'package:Art_Chat/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:camera/camera.dart';
-import 'home_screen.dart';
 
-class SplashScreen extends StatefulWidget {
-  final CameraDescription camera;
-
-  const SplashScreen({Key? key, required this.camera}) : super(key: key);
+class LoadingScreen extends StatefulWidget {
+  const LoadingScreen({Key? key}) : super(key: key);
 
   @override
-  _SplashScreenState createState() => _SplashScreenState();
+  _LoadingScreenState createState() => _LoadingScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
+class _LoadingScreenState extends State<LoadingScreen> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _progressAnimation;
 
@@ -36,7 +33,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
         Navigator.pushReplacement(
           context,
           PageRouteBuilder(
-            pageBuilder: (_, __, ___) => HomeScreen(camera: widget.camera),
+            pageBuilder: (_, __, ___) => LoginScreen(),
             transitionsBuilder: (_, animation, __, child) {
               return FadeTransition(opacity: animation, child: child);
             },

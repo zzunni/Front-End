@@ -1,11 +1,15 @@
+import 'package:Art_Chat/services/tts_service.dart';
 import 'package:flutter/material.dart';
 import 'recommand_vts_screen.dart';
+import '../services/tts_service.dart'; // 🔹 TTS 서비스 import
 
 class RecommandScreen extends StatelessWidget {
   const RecommandScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final TTSService ttsService = TTSService(); // 🔹 TTS 서비스 인스턴스 생성
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -13,11 +17,11 @@ class RecommandScreen extends StatelessWidget {
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            color: Colors.white, // 타이틀 텍스트를 흰색으로 변경
+            color: Colors.white,
           ),
         ),
         centerTitle: true,
-        backgroundColor: Colors.black, // AppBar도 검정색으로 변경
+        backgroundColor: Colors.black,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
@@ -26,12 +30,12 @@ class RecommandScreen extends StatelessWidget {
           },
         ),
       ),
-      backgroundColor: Colors.black, // 전체 배경을 검정색으로 변경
+      backgroundColor: Colors.black,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // 작품 메인 이미지 (어두운 배경에서 더 돋보이도록)
+            // 작품 메인 이미지
             Expanded(
               flex: 4,
               child: ClipRRect(
@@ -61,34 +65,39 @@ class RecommandScreen extends StatelessWidget {
                 ),
                 const SizedBox(width: 16),
 
-                // 작품 제목 & 설명
+                // 작품 제목 & 설명 (클릭 시 TTS 실행)
                 Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[900], // 어두운 회색 배경
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '별이 빛나는 밤',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white, // 텍스트 색상 변경
+                  child: GestureDetector(
+                    onTap: () {
+                      ttsService.speak("별이 빛나는 밤, 빈센트 반 고흐, 1889");
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[900],
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '별이 빛나는 밤',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          '빈센트 반 고흐, 1889',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey, // 파란색 강조
+                          SizedBox(height: 4),
+                          Text(
+                            '빈센트 반 고흐, 1889',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -96,57 +105,66 @@ class RecommandScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
 
-            // AI 분석 결과 박스 (다크 모드 스타일)
+            // AI 분석 결과 (클릭 시 TTS 실행)
             Expanded(
               flex: 3,
-              child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.grey[900], // 어두운 회색 배경
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'AI 분석결과',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white, // 텍스트 흰색
+              child: GestureDetector(
+                onTap: () {
+                  ttsService.speak(
+                      "이 작품은 후기 인상주의를 대표하는 걸작으로, "
+                          "소용돌이치는 하늘과 밝게 빛나는 별들이 특징적입니다. "
+                          "강렬한 감정 표현과 역동적인 붓터치를 통해 "
+                          "작가의 내면 세계를 드러내고 있습니다."
+                  );
+                },
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[900],
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'AI 분석결과',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      '이 작품은 후기 인상주의를 대표하는 걸작으로, '
-                          '소용돌이치는 하늘과 밝게 빛나는 별들이 특징적입니다. '
-                          '강렬한 감정 표현과 역동적인 붓터치를 통해 '
-                          '작가의 내면 세계를 드러내고 있습니다.',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.grey, // 연한 회색으로 가독성 유지
+                      SizedBox(height: 8),
+                      Text(
+                        '이 작품은 후기 인상주의를 대표하는 걸작으로, '
+                            '소용돌이치는 하늘과 밝게 빛나는 별들이 특징적입니다. '
+                            '강렬한 감정 표현과 역동적인 붓터치를 통해 '
+                            '작가의 내면 세계를 드러내고 있습니다.',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
             const SizedBox(height: 16),
 
-            // 대화하기 버튼 (파란색 강조)
+            // 대화하기 버튼
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  // 대화하기 버튼 로직 추가 가능
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const RecommandVtsScreen()),
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFF1E40AF), // 버튼 배경 파란색
+                  backgroundColor: Color(0xFF1E40AF),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
