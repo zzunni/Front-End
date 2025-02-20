@@ -20,6 +20,28 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
     await ttsService.speak(text);
   }
 
+  // ✅ 이미지 다이얼로그 띄우기 (확대/축소 가능)
+  void _showImageDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          child: InteractiveViewer(
+            panEnabled: true,
+            boundaryMargin: EdgeInsets.all(20),
+            minScale: 0.5,
+            maxScale: 3.0,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image.file(File(widget.imagePath)),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,14 +64,36 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // 📌 촬영한 이미지 표시
-            ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: Image.file(
-                File(widget.imagePath),
-                width: double.infinity,
-                height: 250,
-                fit: BoxFit.cover,
+            // 📌 촬영한 이미지 표시 (클릭 시 확대)
+            GestureDetector(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return Dialog(
+                      backgroundColor: Colors.transparent,
+                      child: InteractiveViewer(
+                        panEnabled: true,
+                        boundaryMargin: EdgeInsets.all(20),
+                        minScale: 0.5,
+                        maxScale: 3.0,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Image.file(File(widget.imagePath)),
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Image.file(
+                  File(widget.imagePath),
+                  width: double.infinity,
+                  height: 250,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             const SizedBox(height: 12),
