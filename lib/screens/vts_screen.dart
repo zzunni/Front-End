@@ -70,7 +70,7 @@ class _VtsScreenState extends State<VtsScreen> {
       backgroundColor: const Color(0xFFF5F5F5),
       appBar: AppBar(
         title: const Text(
-          'VTS 대화',
+          'Art Chat',
           style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, color: Colors.black),
         ),
         centerTitle: true,

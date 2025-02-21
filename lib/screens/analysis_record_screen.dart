@@ -3,7 +3,7 @@ import 'dart:io';
 import '../services/tts_service.dart';
 import '../services/mock_artwork_service.dart';
 import '../services/artwork_model.dart';
-import 'vts_screen.dart';
+import 'vts_record_screen.dart';
 
 class AnalysisRecordScreen extends StatefulWidget {
   final int artworkId;
@@ -89,7 +89,6 @@ class _AnalysisScreenState extends State<AnalysisRecordScreen> {
         body: const Center(child: Text('작품을 찾을 수 없습니다.')),
       );
     }
-
     return Scaffold(
       backgroundColor: const Color(0xFFF5F5F5),
       appBar: AppBar(
@@ -151,13 +150,14 @@ class _AnalysisScreenState extends State<AnalysisRecordScreen> {
                               style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
+                                color: Colors.black,  // 색상 변경
                               ),
                             ),
                             Text(
                               '${artwork!.artist}, ${artwork!.year}',
                               style: const TextStyle(
                                 fontSize: 14,
-                                color: Color(0xFF1E40AF),
+                                color: Colors.black,  // 색상 변경
                               ),
                             ),
                           ],
@@ -167,6 +167,7 @@ class _AnalysisScreenState extends State<AnalysisRecordScreen> {
                   ),
                 ),
               ),
+
               const SizedBox(height: 16),
 
               // AI 분석 결과
@@ -174,6 +175,7 @@ class _AnalysisScreenState extends State<AnalysisRecordScreen> {
                 onTap: () => _speak(artwork!.aiAnalysis),
                 child: Container(
                   width: double.infinity,
+                  height: MediaQuery.of(context).size.height * 0.35,  // 높이 증가
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -190,6 +192,7 @@ class _AnalysisScreenState extends State<AnalysisRecordScreen> {
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
+                              color: Colors.black,  // 색상 변경
                             ),
                           ),
                           const Spacer(),
@@ -203,9 +206,14 @@ class _AnalysisScreenState extends State<AnalysisRecordScreen> {
                         ],
                       ),
                       const SizedBox(height: 8),
-                      Text(
-                        artwork!.aiAnalysis,
-                        style: const TextStyle(fontSize: 14),
+                      Expanded(  // Expanded로 변경하여 남은 공간 채우기
+                        child: Text(
+                          artwork!.aiAnalysis,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: Colors.black,  // 색상 변경
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -235,7 +243,7 @@ class _AnalysisScreenState extends State<AnalysisRecordScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => VtsScreen(
+                            builder: (context) => VtsRecordScreen(
                               imagePath: artwork!.imagePath,
                             ),
                           ),

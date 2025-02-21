@@ -30,4 +30,15 @@ class SpeechRecognitionService {
 
     return recognizedText.isNotEmpty ? recognizedText : null;
   }
+
+  // 음성 인식 중지 메서드
+  Future<void> stopListening() async {
+  // 실제 구현에서는 사용 중인 음성 인식 서비스를 중지
+  // 이 예제에서는 간단히 지연만 추가
+  await Future.delayed(const Duration(milliseconds: 300));
+
+  // 추가적인 정리 작업이 필요하면 여기서 수행
+  print('음성 인식이 중지되었습니다.');
+  }
+
 }

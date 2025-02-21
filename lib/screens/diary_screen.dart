@@ -67,6 +67,17 @@ class _DiaryPageState extends State<DiaryPage> {
   }
 
   Future<void> _startSpeechRecognition() async {
+    // 이미 듣고 있는 상태라면 중지
+    if (_isListening) {
+      await _speechService.stopListening();
+      setState(() {
+        _isListening = false;
+        _searchText = "찾으시는 작품 있으세요?";
+      });
+      return;
+    }
+
+    // 새로 음성 인식 시작
     try {
       setState(() {
         _isListening = true;
@@ -147,16 +158,26 @@ class _DiaryPageState extends State<DiaryPage> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                GestureDetector(
-                  onTap: () => _changeDate(false),
-                  child: SvgPicture.asset(
-                    'assets/left_icon.svg',
-                    width: 14,
-                    height: 14,
+                // 왼쪽 화살표 - 크기 증가 및 탭 영역 확장
+                Container(
+                  width: 44,  // 탭 영역 확장
+                  height: 44,
+                  alignment: Alignment.center,
+                  child: GestureDetector(
+                    onTap: () => _changeDate(false),
+                    child: Container(
+                      padding: const EdgeInsets.all(8), // 패딩 추가
+                      child: SvgPicture.asset(
+                        'assets/left_icon.svg',
+                        width: 24,  // 아이콘 크기 증가
+                        height: 24,
+                        color: const Color(0xFF1E40AF), // 색상 추가해서 가시성 향상
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -175,19 +196,29 @@ class _DiaryPageState extends State<DiaryPage> {
                       onTap: () => _selectDate(context),
                       child: SvgPicture.asset(
                         'assets/calender_icon.svg',
-                        width: 24,
-                        height: 24,
+                        width: 28,  // 달력 아이콘도 살짝 키우기
+                        height: 28,
                       ),
                     ),
                   ],
                 ),
                 const SizedBox(width: 16),
-                GestureDetector(
-                  onTap: () => _changeDate(true),
-                  child: SvgPicture.asset(
-                    'assets/right_icon.svg',
-                    width: 14,
-                    height: 14,
+                // 오른쪽 화살표 - 크기 증가 및 탭 영역 확장
+                Container(
+                  width: 44,  // 탭 영역 확장
+                  height: 44,
+                  alignment: Alignment.center,
+                  child: GestureDetector(
+                    onTap: () => _changeDate(true),
+                    child: Container(
+                      padding: const EdgeInsets.all(8), // 패딩 추가
+                      child: SvgPicture.asset(
+                        'assets/right_icon.svg',
+                        width: 24,  // 아이콘 크기 증가
+                        height: 24,
+                        color: const Color(0xFF1E40AF), // 색상 추가해서 가시성 향상
+                      ),
+                    ),
                   ),
                 ),
               ],
